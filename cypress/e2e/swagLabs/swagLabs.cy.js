@@ -30,9 +30,23 @@ describe("Swag Labs E2E", () => {
         cy.get("#password").type("secret_sauce");
         cy.get("#login-button").click();
 
+        //assertion
         cy.get(".shopping_cart_badge").should("not.exist");
+        //perform actions
         cy.contains("ADD TO CART").eq(0).click();
         //assertion
         cy.get(".shopping_cart_badge").should("be.visible");
+    });
+
+    it("should be able to sort using the filter", () => {
+        //perform actions
+        cy.get("#user-name").type("standard_user");
+        cy.get("#password").type("secret_sauce");
+        cy.get("#login-button").click();
+
+        cy.get(".product_sort_container").select("za");
+
+        //assertion
+        cy.get(".inventory_item").eq(0).find(".inventory_item_name").should("have.text", "Test.allTheThings() T-Shirt (Red)");
     });
 });
