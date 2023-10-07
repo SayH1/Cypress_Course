@@ -1,14 +1,18 @@
 /// <reference types="cypress" />
+import { SwagLogin } from "../pages/swagLogin";
 
 describe("Swag Labs E2E", () => {
     beforeEach(() => {
         cy.visit("https://www.saucedemo.com/v1/");
     });
     it("should be able to login", () => {
+        //preparation
+        const login = new SwagLogin();
         //perform actions
-        cy.get("#user-name").type("standard_user");
-        cy.get("#password").type("secret_sauce");
-        cy.get("#login-button").click();
+        // login.elements.username().type("standard_user");
+        // login.elements.password().type("secret_sauce");
+        // login.elements.login().click();
+        login.loginSuccessful();
 
         //assertion
         cy.url().should("contain", "inventory.html");
