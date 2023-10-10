@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import { SwagLogin } from "../pages/swagLogin";
+import { SwagInventory } from "../pages/swagInventory";
 
 describe("Swag Labs Login page", () => {
     beforeEach(() => {
@@ -37,30 +38,31 @@ describe("Swag Labs E2E", () => {
     });
 
     it("should be able to add items to the shopping cart", () => {
-        //perform actions
-
+        //preparation
+        const inventory = new SwagInventory();
         //assertion
-        cy.get(".shopping_cart_badge").should("not.exist");
+        inventory.elements.cartbadge().should("not.exist");
         //perform actions
-        cy.contains("ADD TO CART").eq(0).click();
+        inventory.elements.addToCartText().eq(0).click();
         //assertion
-        cy.get(".shopping_cart_badge").should("be.visible");
+        inventory.elements.cartbadge().should("be.visible");
     });
 
     it("should be able to sort using the filter", () => {
+        //preparation
+        const inventory = new SwagInventory();
         //perform actions
-
-        cy.get(".product_sort_container").select("za");
+        inventory.elements.filter().select("za");
 
         //assertion
-        cy.get(".inventory_item").eq(0).find(".inventory_item_name").should("have.text", "Test.allTheThings() T-Shirt (Red)");
+        inventory.elements.firstProduct().find(".inventory_item_name").should("have.text", "Test.allTheThings() T-Shirt (Red)");
     });
 
     it("should be able to checkout successfully", () => {
-        //perform actions
-
+        //preparation
+        const inventory = new SwagInventory();
         //Inventory page
-        cy.contains("ADD TO CART").eq(0).click();
+        inventory.elements.addToCartText().eq(0).click();
         cy.get("#shopping_cart_container").click();
         cy.get(".checkout_button").click();
         //Your Information page
