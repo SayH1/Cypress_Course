@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import { SwagLogin } from "../pages/swagLogin";
 
-describe("Swag Labs E2E", () => {
+describe("Swag Labs Login page", () => {
     beforeEach(() => {
         cy.visit("https://www.saucedemo.com/v1/");
     });
@@ -27,12 +27,17 @@ describe("Swag Labs E2E", () => {
         //assertion
         cy.get('[data-test="error"]').should("be.visible");
     });
+});
+
+describe("Swag Labs E2E", () => {
+    beforeEach(() => {
+        cy.visit("https://www.saucedemo.com/v1/");
+        const login = new SwagLogin();
+        login.loginSuccessful();
+    });
 
     it("should be able to add items to the shopping cart", () => {
         //perform actions
-        cy.get("#user-name").type("standard_user");
-        cy.get("#password").type("secret_sauce");
-        cy.get("#login-button").click();
 
         //assertion
         cy.get(".shopping_cart_badge").should("not.exist");
@@ -44,9 +49,6 @@ describe("Swag Labs E2E", () => {
 
     it("should be able to sort using the filter", () => {
         //perform actions
-        cy.get("#user-name").type("standard_user");
-        cy.get("#password").type("secret_sauce");
-        cy.get("#login-button").click();
 
         cy.get(".product_sort_container").select("za");
 
@@ -56,9 +58,7 @@ describe("Swag Labs E2E", () => {
 
     it("should be able to checkout successfully", () => {
         //perform actions
-        cy.get("#user-name").type("standard_user");
-        cy.get("#password").type("secret_sauce");
-        cy.get("#login-button").click();
+
         //Inventory page
         cy.contains("ADD TO CART").eq(0).click();
         cy.get("#shopping_cart_container").click();
