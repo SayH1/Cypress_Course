@@ -4,7 +4,8 @@
   "description": "This content is intended for anyone with or without programming background to freshly pick up Cypress for basic E2E testing.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:swag": "npx cypress run -s cypress/e2e/swagLabs"
   },
   "author": "",
   "license": "ISC",
