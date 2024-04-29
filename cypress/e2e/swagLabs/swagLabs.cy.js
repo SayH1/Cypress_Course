@@ -10,6 +10,14 @@ describe("Swag Labs Login page", () => {
         //preparation
         const login = new SwagLogin();
         //perform actions
+
+        //Old
+        cy.get("#user-name").type("username1234");
+        cy.get("#password").type("password1234");
+        cy.get("#login-button").click();
+
+
+        //New
         // login.elements.username().type("standard_user");
         // login.elements.password().type("secret_sauce");
         // login.elements.login().click();
@@ -58,7 +66,7 @@ describe("Swag Labs E2E", () => {
         inventory.elements.firstProduct().find(".inventory_item_name").should("have.text", "Test.allTheThings() T-Shirt (Red)");
     });
 
-    it("should be able to checkout successfully", () => {
+    it.only("should be able to checkout successfully", () => {
         //preparation
         const inventory = new SwagInventory();
         //Inventory page
